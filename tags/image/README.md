@@ -1,0 +1,2 @@
+# KirbyText Extension - Image
+=============================
