@@ -11,6 +11,11 @@ This extended version of the original KirbyTag image function replace the origin
 
 ## Changes
 
+### 0.5
+
+* Bugfix
+* Add the new config option 'kirbytext.image.caption_field'. With this config option you can define a custom file field, what will be read for the caption of an image. Only when the config parmeter 'kirbytext.image.caption' or the parameter `caption` is 'true'. When the config parameter is true, you can selectiv deactivate it for an image. Just set the parameter `caption` to 'false'. When you write a different text into the `caption` parameter, this will be used. 
+
 ### 0.4
 
 * Move the logic into to a plugin (static method). So you can use the function every where in Kirby (template, other KirbyTag, ...)
@@ -45,20 +50,22 @@ This extended version of the original KirbyTag image function replace the origin
 
 ## Config Options
 
-| Kirby option                | Default |
-| --------------------------- | ------- |
-| kirbytext.image.width       | empty   |
-| kirbytext.image.height      | empty   |
-| kirbytext.image.figureclass | 'image' |
-| kirbytext.image.imgclass    | empty   |
-| kirbytext.image.linkclass   | empty   |
-| kirbytext.image.caption_top | false   |
-| kirbytext.image.target      | empty   |
-| kirbytext.image.resize      | false   |
-| kirbytext.image.quality     | 100     |
-| kirbytext.image.blur        | false   |
-| kirbytext.image.upscale     | false   |
-| kirbytext.image.grayscale   | false   |
+| Kirby option                  | Default |
+| ----------------------------- | ------- |
+| kirbytext.image.width         | empty   |
+| kirbytext.image.height        | empty   |
+| kirbytext.image.figureclass   | 'image' |
+| kirbytext.image.imgclass      | empty   |
+| kirbytext.image.linkclass     | empty   |
+| kirbytext.image.caption       | 'false' |
+| kirbytext.image.caption_top   | 'false' |
+| kirbytext.image.caption_field | 'false' |
+| kirbytext.image.target        | empty   |
+| kirbytext.image.resize        | 'false' |
+| kirbytext.image.quality       | 100     |
+| kirbytext.image.blur          | 'false' |
+| kirbytext.image.upscale       | 'false' |
+| kirbytext.image.grayscale     | 'false' |
 
 ## Examples
 

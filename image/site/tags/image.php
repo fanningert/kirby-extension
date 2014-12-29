@@ -27,8 +27,9 @@
  *
  * View: https://github.com/getkirby/toolkit/blob/bd759fa110bcec78b9e9c436438debdb6f7d63ab/lib/thumb.php for thumb
  *
- * @version: 0.4
+ * @version: 0.5
  */
+unset(kirbytext::$tags['image']);
 kirbytext::$tags['image'] = array(
   'attr' => array(
     'width',
@@ -61,7 +62,13 @@ kirbytext::$tags['image'] = array(
     }
     unset($image_options['target']);
     unset($image_options['popup']);
-    $image_options['target'] = $tag->target();
+    if(!empty($tag->target()))
+      $image_options['target'] = $tag->target();
+
+    if(array_key_exists('alt', $image_options) and !$image_options['alt'] and empty($image_options['alt']) and array_key_exists('text', $image_options) and !$image_options['text'] and !empty($image_options['text'])){
+      $image_options['alt'] = $image_options['text'];
+      unset($image_options['text']);
+    }
 
     return ImageHelper::getThumb($tag->page(), $image, $image_options);
   }

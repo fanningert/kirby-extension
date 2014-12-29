@@ -1,43 +1,60 @@
 <?php
 
 /**
- * @version: 0.4
+ * @version: 0.5
  */
 
 class ImageHelper {
   /**
    * Create/Get a Thumb of an image and return the HTML-Tag
    */
-  public static function getThumb($page, $image_url, $param = array()){
-    $defaults = array(
-      'url'         => '',
-      'url_thumb'   => '',
-      'width'       => kirby()->option('kirbytext.image.width', ''),
-      'height'      => kirby()->option('kirbytext.image.height', ''),
-      'alt'         => '',
-      'text'        => '',
-      'title'       => '',
-      'class'       => kirby()->option('kirbytext.image.figureclass', 'image'),
-      'imgclass'    => kirby()->option('kirbytext.image.imgclass', ''),
-      'linkclass'   => kirby()->option('kirbytext.image.linkclass', ''),
-      'caption'     => '',
-      'caption_top' => kirby()->option('kirbytext.image.caption_top', false),
-      'link'        => '',
-      'target'      => kirby()->option('kirbytext.image.target', ''),
-      'popup'       => '',
-      'rel'         => '',
-      'resize'      => kirby()->option('kirbytext.image.resize', false),
-      'quality'     => kirby()->option('kirbytext.image.quality', 100),
-      'blur'        => kirby()->option('kirbytext.image.blur', false),
-      'upscale'     => kirby()->option('kirbytext.image.upscale', false),
-      'grayscale'   => kirby()->option('kirbytext.image.grayscale', false)
-    );
+  public static function getThumb($page, $image_url, $image_param = array()){
 
-    $param = array_merge($defaults, $param);
+    $defaults = array(
+      'url'           => '',
+      'url_thumb'     => '',
+      'width'         => kirby()->option('kirbytext.image.width', ''),
+      'height'        => kirby()->option('kirbytext.image.height', ''),
+      'alt'           => 'false',
+      'title'         => 'false',
+      'class'         => kirby()->option('kirbytext.image.figureclass', 'image'),
+      'imgclass'      => kirby()->option('kirbytext.image.imgclass', ''),
+      'linkclass'     => kirby()->option('kirbytext.image.linkclass', ''),
+      'caption'       => kirby()->option('kirbytext.image.caption', 'false'),
+      'caption_top'   => kirby()->option('kirbytext.image.caption_top', 'false'),
+      'caption_field' => kirby()->option('kirbytext.image.caption_field', 'false'),
+      'link'          => '',
+      'target'        => kirby()->option('kirbytext.image.target', ''),
+      'rel'           => '',
+      'resize'        => kirby()->option('kirbytext.image.resize', 'false'),
+      'quality'       => kirby()->option('kirbytext.image.quality', 100),
+      'blur'          => kirby()->option('kirbytext.image.blur', 'false'),
+      'upscale'       => kirby()->option('kirbytext.image.upscale', 'false'),
+      'grayscale'     => kirby()->option('kirbytext.image.grayscale', 'false')
+    );
     
+    $param = array();
+    foreach($defaults as $key => $value){
+      $param[$key] = $value;
+      if( array_key_exists($key, $image_param) and !empty($image_param[$key]))
+        $param[$key] = (String)$image_param[$key];
+    }
+    
+    //Type correction
+    $param['caption_top'] = ($param['caption_top'] === 'true')? true : false;
+    $param['caption_field'] = ($param['caption_field'] === 'false')? false : $param['caption_field'];
+    $param['blur'] = ($param['blur'] === 'true')? true : false;
+    $param['upscale'] = ($param['upscale'] === 'true')? true : false;
+    $param['grayscale'] = ($param['grayscale'] === 'true')? true : false;
+    
+    $param['alt'] = ($param['alt'] === 'false')? false : $param['alt'];
+    $param['title'] = ($param['title'] === 'false')? false : $param['title'];
+    $param['caption'] = ($param['caption'] === 'false')? false : $param['caption'];
+    $param['caption'] = ($param['caption'] === 'true')? true : $param['caption'];
+
     //Check if $image is an internal image or a url
     $file = $page->file($image_url);
-    $param['url'] = $file ? $file->url() : url($image_url);
+    $param['url'] = $file ? (String)$file->url() : (String)url($image_url);
     $param['url_thumb'] = $param['url'];
 
     if(empty($param['url']))
@@ -61,7 +78,7 @@ class ImageHelper {
       $thumb_dimension = $thumb->result->dimensions();
       $param['width'] = $thumb_dimension->width();
       $param['height'] = $thumb_dimension->height();
-      $param['url_thumb'] = $thumb->url();
+      $param['url_thumb'] = (String)$thumb->url();
     }else{
       if($file){
         $file_dimension = $file->dimensions();
@@ -72,18 +89,22 @@ class ImageHelper {
       }
     }
     
-    //Texts
-    if($param['text']) $param['alt'] = $param['text'] ;
-    // try to get the title from the image object and use it as alt text
+    print_r($param);
+
+    // try to get some infos from the image object, when the attr are empty
     if($file) {
-      if(empty($param['alt']) and $file->alt() != '') {
+      if(($param['alt'] == true or empty($param['alt'])) and !empty($file->alt())) {
         $param['alt'] = $file->alt();
       }
-      if(empty($param['title']) and $file->title() != '') {
+      if(($param['title'] == true or empty($param['title'])) and !empty($file->title())) {
         $param['title'] = $file->title();
       }
+      if( $param['caption'] !== false and ( $param['caption'] === true or empty($param['caption'])) and $param['caption_field'] !== false and !empty($param['caption_field']) and !empty($file->$param['caption_field']())){
+        $param['caption'] = $file->$param['caption_field']();
+      }
     }
-    if(empty($param['alt'])) $param['alt'] = pathinfo($param['url'] , PATHINFO_FILENAME);
+    if(empty($param['alt'])) 
+      $param['alt'] = pathinfo($param['url'] , PATHINFO_FILENAME);
 
     // build image tag
     $image = html::img($param['url_thumb'], array(
@@ -110,13 +131,14 @@ class ImageHelper {
         'target' => $param['target']
       ));
     }
-    if(!empty($caption)) {
+
+    if($param['caption'] !== false and !empty($param['caption'])) {
       $figure = new Brick('figure');
       $figure->addClass($param['class']);
-      if($param['caption_top'])
+      if($param['caption_top'] === true)
         $figure->append('<figcaption>' . html($param['caption']) . '</figcaption>');
       $figure->append($image);
-      if(!$param['caption_top'])
+      if($param['caption_top'] === false)
         $figure->append('<figcaption>' . html($param['caption']) . '</figcaption>');
       return $figure;
     }else{
