@@ -1,10 +1,27 @@
 # KirbyText Extension - Image
 
-*Version:* 0.3
+*Version:* 0.4
 
-This extended version of the original KirbyText image function replace the original.
+This extended version of the original KirbyTag image function replace the original.
 
-## Options
+## ToDos
+
+* Make the overwrite of the original KirbyTag as an Option
+* Upscale function
+
+## Changes
+
+### 0.4
+
+* Move the logic into to a plugin (static method). So you can use the function every where in Kirby (template, other KirbyTag, ...)
+* Add many possible Kirby config options (I know this is not perfect, because I am using the kirby namespace. But when anyone have a idea for a better namespace. Please tell your idea. As ABAP developer I would change it to zkirbytext....)
+* Optimize the logic
+
+### 0.3
+
+* Initial version
+
+## Options for KirbyTag
 
 * *width*: (optional) 
 * *height*: (optional) 
@@ -25,6 +42,23 @@ This extended version of the original KirbyText image function replace the origi
 * *blur*: (optional, Values: true/false, Default: false) Blurs the image using the Gaussian method.
 * *upscale*: (optional, Values: true/false, Default: false) Upscale the image
 * *grayscale*: (optional, Values: true/false, Default: false) Converts the image into grayscale.
+
+## Config Options
+
+| Kirby option                | Default |
+| --------------------------- | ------- |
+| kirbytext.image.width       | empty   |
+| kirbytext.image.height      | empty   |
+| kirbytext.image.figureclass | 'image' |
+| kirbytext.image.imgclass    | empty   |
+| kirbytext.image.linkclass   | empty   |
+| kirbytext.image.caption_top | false   |
+| kirbytext.image.target      | empty   |
+| kirbytext.image.resize      | false   |
+| kirbytext.image.quality     | 100     |
+| kirbytext.image.blur        | false   |
+| kirbytext.image.upscale     | false   |
+| kirbytext.image.grayscale   | false   |
 
 ## Examples
 
