@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @version: 0.4
+ */
+
 class ImageHelper {
   /**
    * Create/Get a Thumb of an image and return the HTML-Tag
@@ -33,9 +37,12 @@ class ImageHelper {
     
     //Check if $image is an internal image or a url
     $file = $page->file($image_url);
-    $param['url'] = $file ? $file->url() : url($url);
+    $param['url'] = $file ? $file->url() : url($image_url);
     $param['url_thumb'] = $param['url'];
-    
+
+    if(empty($param['url']))
+      return;  
+
     //If resize == resize/crop use thumb
     if($param['resize'] or $param['resize'] == 'resize' or $param['resize'] == 'crop' or $param['blur'] or $param['upscale'] or $param['grayscale']){
       $thumb_options = array();
@@ -54,6 +61,7 @@ class ImageHelper {
       $thumb_dimension = $thumb->result->dimensions();
       $param['width'] = $thumb_dimension->width();
       $param['height'] = $thumb_dimension->height();
+      $param['url_thumb'] = $thumb->url();
     }else{
       if($file){
         $file_dimension = $file->dimensions();

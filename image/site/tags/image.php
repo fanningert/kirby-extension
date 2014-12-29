@@ -27,7 +27,7 @@
  *
  * View: https://github.com/getkirby/toolkit/blob/bd759fa110bcec78b9e9c436438debdb6f7d63ab/lib/thumb.php for thumb
  *
- * @version: 0.3
+ * @version: 0.4
  */
 kirbytext::$tags['image'] = array(
   'attr' => array(
