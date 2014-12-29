@@ -88,8 +88,6 @@ class ImageHelper {
           $param['height'] = $file_dimension->height();
       }
     }
-    
-    print_r($param);
 
     // try to get some infos from the image object, when the attr are empty
     if($file) {
