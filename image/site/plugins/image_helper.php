@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @version: 0.5
+ * @version: 0.6
  */
 
 class ImageHelper {
@@ -13,6 +13,8 @@ class ImageHelper {
     $defaults = array(
       'url'           => '',
       'url_thumb'     => '',
+      'width_output'  => kirby()->option('kirbytext.image.width_output', 'false'),
+      'height_output' => kirby()->option('kirbytext.image.height_output', 'false'),
       'width'         => kirby()->option('kirbytext.image.width', ''),
       'height'        => kirby()->option('kirbytext.image.height', ''),
       'alt'           => 'false',
@@ -41,6 +43,8 @@ class ImageHelper {
     }
     
     //Type correction
+    $param['width_output'] = ($param['width_output'] === 'true')? true : false;
+    $param['height_output'] = ($param['height_output'] === 'true')? true : false;
     $param['caption_top'] = ($param['caption_top'] === 'true')? true : false;
     $param['caption_field'] = ($param['caption_field'] === 'false')? false : $param['caption_field'];
     $param['blur'] = ($param['blur'] === 'true')? true : false;
@@ -103,6 +107,11 @@ class ImageHelper {
     }
     if(empty($param['alt'])) 
       $param['alt'] = pathinfo($param['url'] , PATHINFO_FILENAME);
+
+    if(!$param['width_output'])
+      $param['width'] = '';
+    if(!$param['height_output'])
+      $param['height'] = '';
 
     // build image tag
     $image = html::img($param['url_thumb'], array(

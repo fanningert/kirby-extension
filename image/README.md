@@ -1,15 +1,19 @@
 # KirbyText Extension - Image
 
-*Version:* 0.4
+*Version:* 0.6
 
 This extended version of the original KirbyTag image function replace the original.
 
 ## ToDos
 
-* Make the overwrite of the original KirbyTag as an Option
+* Make the overwrite of the original KirbyTag as an Option.
 * Upscale function
 
 ## Changes
+
+### 0.6
+
+* Option to disable `width` and `height` attribute. Good for responsive Layout design.
 
 ### 0.5
 
@@ -28,44 +32,51 @@ This extended version of the original KirbyTag image function replace the origin
 
 ## Options for KirbyTag
 
-* *width*: (optional) 
-* *height*: (optional) 
-* *alt*: (optional) 
-* *text*: (optional) 
-* *title*: (optional, Default: image title) 
-* *class*: (optional) 
-* *imgclass*: (optional) 
-* *linkclass*: (optional) 
-* *caption*: (optional)
-* *caption_top*: (optional, Values: true/false, Default: false) Place the caption at the top of the image
-* *link*: (optional) 
-* *target*: (optional) 
-* *popup*: (optional) 
-* *rel*: (optional) 
-* *resize*: (optional, Values: none, resize, crop, Default: none) Resize-Methode
-* *quality*: (optional, Default: 100) 
-* *blur*: (optional, Values: true/false, Default: false) Blurs the image using the Gaussian method.
-* *upscale*: (optional, Values: true/false, Default: false) Upscale the image
-* *grayscale*: (optional, Values: true/false, Default: false) Converts the image into grayscale.
+| Option | Default | Values | Description |
+| ------ | ------- | ------ | ----------- |
+| width | empty | {number} | Image width for the resize methode |
+| height | empty | {number} | Image height for the resize methode |
+| width_output | false | true/false | Activate or Deactivate the width attribute output |
+| height_output | false | true/false | Activate or Deactivate the height attribute output |
+| alt | false | false/{string} | |
+| text | false | false/{string} | Fallback for `alt` |
+| title | false | false/{string} | |
+| class | empty| {string} | Class for the figure element |
+| imgclass | empty | {string} | Class for the img element |
+| linkclass | empty | {string} | Class for the link element |
+| caption | false | true/false/{string} | Caption from file field active (true/false) or a caption string |
+| caption_field | false | false/{fieldname} | File field which is used for the caption text |
+| caption_top | false | true/false | Position of the caption, top or bottom of the image |
+| link | empty | {string} | |
+| target | empty | {string} | Same effect like the html target attribute |
+| popup | empty | {string} | Fallback for `target` |
+| rel | empty | {string} | |
+| resize | false | false/resize/crop | Image resize methode |
+| quality | 100 | 1-100 | Quality of the result |
+| blur | false | true/false | Blurs the image using the Gaussian method |
+| upscale | false | true/false | Upscale the image (inprogress) |
+| grayscale | false | true/false | Converts the image into grayscale |
 
 ## Config Options
 
-| Kirby option                  | Default |
-| ----------------------------- | ------- |
-| kirbytext.image.width         | empty   |
-| kirbytext.image.height        | empty   |
-| kirbytext.image.figureclass   | 'image' |
-| kirbytext.image.imgclass      | empty   |
-| kirbytext.image.linkclass     | empty   |
-| kirbytext.image.caption       | 'false' |
-| kirbytext.image.caption_top   | 'false' |
-| kirbytext.image.caption_field | 'false' |
-| kirbytext.image.target        | empty   |
-| kirbytext.image.resize        | 'false' |
-| kirbytext.image.quality       | 100     |
-| kirbytext.image.blur          | 'false' |
-| kirbytext.image.upscale       | 'false' |
-| kirbytext.image.grayscale     | 'false' |
+| Kirby option | Default | Values | Description |
+| ------------ | ------- | ------ | ----------- |
+| kirbytext.image.width | empty   | {number} | Default width for an image |
+| kirbytext.image.height | empty   | {number} | Default height for an image |
+| kirbytext.image.width_output | false | true/false | Activate or Deactivate the width attribute outpute |
+| kirbytext.image.height_output | false | true/false | Activate or Deactivate the height attribute output |
+| kirbytext.image.figureclass | 'image' | {string} | Default class for the figure element |
+| kirbytext.image.imgclass | empty | {string} | Default class for the img element |
+| kirbytext.image.linkclass | empty | {string} | Default class for the link element |
+| kirbytext.image.caption | 'false' | true/false/{string} | Caption active (true/false) or a default caption |
+| kirbytext.image.caption_top | 'false' | true/false | Position of the caption, top or bottom of the image |
+| kirbytext.image.caption_field | 'false' | false/{fieldname} | File field which is used for the caption text. |
+| kirbytext.image.target | empty | {string} | Same effect like the html target attribute |
+| kirbytext.image.resize | 'false' | false/resize/crop | Image resize methode |
+| kirbytext.image.quality | 100 | 1-100% | Qualitiy of the result |
+| kirbytext.image.blur | 'false' | true/false | Blur filter |
+| kirbytext.image.upscale | 'false' | true/false | Upscale image |
+| kirbytext.image.grayscale | 'false' | true/false | Grayscale filter |
 
 ## Examples
 
