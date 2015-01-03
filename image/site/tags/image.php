@@ -33,7 +33,8 @@ kirbytext::$tags['image'] = array(
     $image = $tag->attr('image');
 
     foreach(kirbytext::$tags['image']['attr'] as $name) {
-      if( !empty($value = $tag->attr($name)) )
+      $value = $tag->attr($name)
+      if( !empty($value) )
         $image_options[$name] = $value;
     }
     unset($image_options['target']);

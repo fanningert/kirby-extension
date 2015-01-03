@@ -95,10 +95,10 @@ class ImageHelper {
 
     // try to get some infos from the image object, when the attr are empty
     if($file) {
-      if(($param['alt'] == true or empty($param['alt'])) and !empty($file->alt())) {
+      if( ($param['alt'] === true or empty($param['alt'])) and !empty($file->alt()) ) {
         $param['alt'] = $file->alt();
       }
-      if(($param['title'] == true or empty($param['title'])) and !empty($file->title())) {
+      if( ($param['title'] === true or empty($param['title'])) and !empty($file->title()) ) {
         $param['title'] = $file->title();
       }
       if( $param['caption'] !== false and ( $param['caption'] === true or empty($param['caption'])) and $param['caption_field'] !== false and !empty($param['caption_field']) and !empty($file->$param['caption_field']())){
