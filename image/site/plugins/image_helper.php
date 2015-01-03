@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @version: 0.6
+ * @version: 0.7
  */
 
 class ImageHelper {
@@ -142,14 +142,33 @@ class ImageHelper {
     if($param['caption'] !== false and !empty($param['caption'])) {
       $figure = new Brick('figure');
       $figure->addClass($param['class']);
-      if($param['caption_top'] === true)
-        $figure->append('<figcaption>' . html($param['caption']) . '</figcaption>');
-      $figure->append($image);
-      if($param['caption_top'] === false)
-        $figure->append('<figcaption>' . html($param['caption']) . '</figcaption>');
+      if($param['caption'] !== false and $param['caption'] !== true){
+        if($param['caption_top'] === true)
+          $figure->append('<figcaption>' . html($param['caption']) . '</figcaption>');
+        $figure->append($image);
+        if($param['caption_top'] === false)
+          $figure->append('<figcaption>' . html($param['caption']) . '</figcaption>');
+      }else{
+        $figure->append($image);
+      }
       return $figure;
     }else{
       return $image; 
     }
+  }
+
+  public static function getGallery($page, $images, $image_options = array()){
+
+    if(array_key_exists('caption', $image_options))
+      $image_options['caption'] = ($image_options['caption'] == 'true')?'true':'false';
+
+    $gallery = new Brick('div');
+    $gallery->addClass($image_options['galleryclass']);
+     
+    foreach($images as $image){
+      $gallery->append(ImageHelper::getThumb($page, $image, $image_options));
+    }
+
+    return $gallery;
   }
 }

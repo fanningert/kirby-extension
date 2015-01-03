@@ -1,10 +1,9 @@
 <?php
+
 /**
- * Original work by Kirby developer. Extended by Thomas Fanninger
- *
- * @version: 0.6
+ * @version: 0.7
  */
-unset(kirbytext::$tags['image']);
+
 kirbytext::$tags['image'] = array(
   'attr' => array(
     'width',
@@ -48,5 +47,40 @@ kirbytext::$tags['image'] = array(
     }
 
     return ImageHelper::getThumb($tag->page(), $image, $image_options);
+  }
+);
+
+kirbytext::$tags['image_gallery'] = array(
+  'attr' => array(
+    'width',
+    'height',
+    'class',
+    'galleryclass',
+    'imgclass',
+    'linkclass',
+    'caption',
+    'caption_top',
+    'link',
+    'resize',
+    'quality',
+    'blur',
+    'upscale',
+    'grayscale',
+    'width_output',
+    'height_output'
+  ),
+  'html' => function($tag) {
+    $image_options = array();
+
+    if(!$tag->attr('image_gallery')) return;
+
+    $images = explode(",", $tag->attr('image_gallery'));
+
+    foreach(kirbytext::$tags['image_gallery']['attr'] as $name) {
+      if( !empty($value = $tag->attr($name)) )
+        $image_options[$name] = $value;
+    }
+    
+    return ImageHelper::getGallery($tag->page(), $images, $image_options);
   }
 );

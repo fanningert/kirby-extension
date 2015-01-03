@@ -1,0 +1,9 @@
+{
+    "name": "toc",
+    "readable": "Table of Content",
+    "version": "0.1",
+    "stable": false,
+    "description": "Display a table of content",
+    "author": "Thomas Fanninger",
+    "url": "http://thomas.fanninger.at"
+}

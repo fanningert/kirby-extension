@@ -1,0 +1,9 @@
+{
+    "name": "page",
+    "readable": "Page",
+    "version": "0.1",
+    "stable": false,
+    "description": "Insert the content of a page at the KirbyText",
+    "author": "Thomas Fanninger",
+    "url": "http://thomas.fanninger.at"
+}

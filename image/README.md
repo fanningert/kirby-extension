@@ -1,6 +1,6 @@
 # KirbyText Extension - Image
 
-*Version:* 0.6
+*Version:* 0.7
 
 This extended version of the original KirbyTag image function replace the original.
 
@@ -10,6 +10,10 @@ This extended version of the original KirbyTag image function replace the origin
 * Upscale function
 
 ## Changes
+
+### 0.7
+
+* Add a new KirbyText tag to insert a gallery, with the same function like from the image KirbyText tag. (Initial and not complete)
 
 ### 0.6
 
